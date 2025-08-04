@@ -1,4 +1,3 @@
-// screens/booking/booking_confirmation_screen.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -29,7 +28,6 @@ class BookingConfirmationScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Property Info Card
             Card(
               child: Padding(
                 padding: EdgeInsets.all(16),
@@ -79,7 +77,6 @@ class BookingConfirmationScreen extends StatelessWidget {
             
             SizedBox(height: 16),
             
-            // Booking Details Card
             Card(
               child: Padding(
                 padding: EdgeInsets.all(16),
@@ -105,7 +102,6 @@ class BookingConfirmationScreen extends StatelessWidget {
             
             SizedBox(height: 16),
             
-            // Price Breakdown Card
             Card(
               child: Padding(
                 padding: EdgeInsets.all(16),
@@ -134,7 +130,6 @@ class BookingConfirmationScreen extends StatelessWidget {
             
             SizedBox(height: 24),
             
-            // Proceed to Payment Button
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(

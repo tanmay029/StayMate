@@ -29,7 +29,6 @@ class ThemeController extends GetxController {
     saveThemeToBox(isDark);
     _updateSystemUI();
     
-    // Add a nice feedback
     Get.snackbar(
       isDark ? 'Dark Mode' : 'Light Mode',
       isDark ? 'Dark theme activated' : 'Light theme activated',

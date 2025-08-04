@@ -1,4 +1,3 @@
-// themes/app_themes.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -201,22 +200,22 @@ class AppThemes {
     ),
     
     textTheme: TextTheme(
-      displayLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-      displayMedium: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-      displaySmall: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-      headlineLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
-      headlineMedium: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
-      headlineSmall: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
-      titleLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
-      titleMedium: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
-      titleSmall: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
-      bodyLarge: TextStyle(color: Colors.white),
-      bodyMedium: TextStyle(color: Colors.white),
-      bodySmall: TextStyle(color: Colors.grey.shade400),
-      labelLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
-      labelMedium: TextStyle(color: Colors.grey.shade300),
-      labelSmall: TextStyle(color: Colors.grey.shade400),
-    ),
+    displayLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+    displayMedium: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+    displaySmall: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+    headlineLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+    headlineMedium: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+    headlineSmall: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+    titleLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+    titleMedium: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+    titleSmall: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+    bodyLarge: TextStyle(color: Colors.white),          // Guest names
+    bodyMedium: TextStyle(color: Colors.white),         // Review text
+    bodySmall: TextStyle(color: Colors.grey.shade400), // Dates and metadata
+    labelLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+    labelMedium: TextStyle(color: Colors.grey.shade300),
+    labelSmall: TextStyle(color: Colors.grey.shade400),
+  ),
     
     iconTheme: IconThemeData(
       color: Colors.white,

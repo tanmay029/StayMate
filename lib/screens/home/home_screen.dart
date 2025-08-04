@@ -1,11 +1,12 @@
-// screens/home/home_screen.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/property_controller.dart';
+import '../../controllers/auth_controller.dart';
 import '../../widgets/property_card.dart';
 
 class HomeScreen extends StatelessWidget {
   final propertyController = Get.put(PropertyController());
+  final authController = Get.find<AuthController>();
   final searchController = TextEditingController();
 
   @override
@@ -16,8 +17,9 @@ class HomeScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-            icon: Icon(Icons.person),
-            onPressed: () => Get.toNamed('/profile'),
+            icon: Icon(Icons.logout),
+            onPressed: () => _showLogoutDialog(),
+            tooltip: 'Logout',
           ),
         ],
       ),
@@ -39,7 +41,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           
-          // Categories - Updated with new categories
           Container(
             height: 60,
             child: Obx(() => ListView(
@@ -58,7 +59,6 @@ class HomeScreen extends StatelessWidget {
             )),
           ),
           
-          // Properties List
           Expanded(
             child: Obx(() => ListView.builder(
               padding: EdgeInsets.all(16),
@@ -82,19 +82,64 @@ class HomeScreen extends StatelessWidget {
         onTap: (index) {
           switch (index) {
             case 0:
-              // Already on home
               break;
             case 1:
-              Get.toNamed('/bookings');
+              Get.offNamed('/bookings');
               break;
             case 2:
-              Get.toNamed('/profile');
+              Get.offNamed('/profile');
               break;
             case 3:
-              Get.toNamed('/settings');
+              Get.offNamed('/settings');
               break;
           }
         },
+      ),
+    );
+  }
+
+  void _showLogoutDialog() {
+    Get.dialog(
+      AlertDialog(
+        title: Row(
+          children: [
+            Icon(Icons.logout, color: Colors.red),
+            SizedBox(width: 8),
+            Text('Logout'),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Are you sure you want to logout?'),
+            SizedBox(height: 8),
+            Obx(() => Text(
+              'Logged in as: ${authController.currentUser.value?.fullName ?? 'User'}',
+              style: TextStyle(
+                color: Colors.grey[600],
+                fontSize: 12,
+              ),
+            )),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Get.back(); 
+              authController.logout(); 
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+            ),
+            child: Text('Logout'),
+          ),
+        ],
       ),
     );
   }

@@ -1,4 +1,3 @@
-// screens/booking/my_bookings_screen.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -45,10 +44,10 @@ class MyBookingsScreen extends StatelessWidget {
             case 1:
               break;
             case 2:
-              Get.toNamed('/profile');
+              Get.offNamed('/profile');
               break;
             case 3:
-              Get.toNamed('/settings');
+              Get.offNamed('/settings');
               break;
           }
         },

@@ -1,4 +1,3 @@
-// controllers/auth_controller.dart
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import '../models/user_model.dart';
@@ -23,7 +22,6 @@ class AuthController extends GetxController {
   }
 
   Future<bool> login(String email, String password) async {
-    // Mock login - in real app, call API
     await Future.delayed(Duration(seconds: 1));
     
     if (email.isNotEmpty && password.length >= 6) {

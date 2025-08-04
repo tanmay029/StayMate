@@ -1,4 +1,3 @@
-// screens/profile/edit_profile_screen.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/auth_controller.dart';
@@ -11,7 +10,6 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Initialize controllers with current user data
     final user = authController.currentUser.value;
     if (user != null) {
       fullNameController.text = user.fullName;
@@ -33,7 +31,6 @@ class EditProfileScreen extends StatelessWidget {
         padding: EdgeInsets.all(16),
         child: Column(
           children: [
-            // Profile Picture
             Center(
               child: Stack(
                 children: [
@@ -69,7 +66,6 @@ class EditProfileScreen extends StatelessWidget {
             
             SizedBox(height: 32),
             
-            // Form Fields
             TextField(
               controller: fullNameController,
               decoration: InputDecoration(
@@ -126,7 +122,6 @@ class EditProfileScreen extends StatelessWidget {
 
   void _saveProfile() {
     if (_validateForm()) {
-      // In a real app, you would update the user profile via API
       Get.snackbar(
         'Success',
         'Profile updated successfully',

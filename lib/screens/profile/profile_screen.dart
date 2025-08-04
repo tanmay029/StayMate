@@ -1,4 +1,3 @@
-// screens/profile/profile_screen.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/auth_controller.dart';
@@ -20,7 +19,6 @@ class ProfileScreen extends StatelessWidget {
           padding: EdgeInsets.all(16),
           child: Column(
             children: [
-              // Profile Header
               Card(
                 child: Padding(
                   padding: EdgeInsets.all(20),
@@ -60,7 +58,6 @@ class ProfileScreen extends StatelessWidget {
               
               SizedBox(height: 20),
               
-              // Profile Options
               Card(
                 child: Column(
                   children: [
@@ -104,7 +101,6 @@ class ProfileScreen extends StatelessWidget {
               
               SizedBox(height: 20),
               
-              // Logout Button
               Card(
                 child: ListTile(
                   leading: Icon(Icons.logout, color: Colors.red),
@@ -145,13 +141,12 @@ class ProfileScreen extends StatelessWidget {
               Get.offAllNamed('/home');
               break;
             case 1:
-              Get.toNamed('/bookings');
+              Get.offNamed('/bookings');
               break;
             case 2:
-              // Already on profile
               break;
             case 3:
-              Get.toNamed('/settings');
+              Get.offNamed('/settings');
               break;
           }
         },

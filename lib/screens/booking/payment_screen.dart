@@ -1,4 +1,3 @@
-// screens/booking/payment_screen.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/booking_controller.dart';
@@ -15,7 +14,7 @@ class PaymentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic> bookingData = Get.arguments;
-    final double totalAmount = bookingData['total'] * 1.22; // Including fees and taxes
+    final double totalAmount = bookingData['total'] * 1.22; 
 
     return Scaffold(
       appBar: AppBar(
@@ -26,7 +25,6 @@ class PaymentScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Payment Amount Card
             Card(
               color: Theme.of(context).primaryColor,
               child: Padding(
@@ -66,7 +64,6 @@ class PaymentScreen extends StatelessWidget {
             
             SizedBox(height: 16),
             
-            // Credit Card Form
             Card(
               child: Padding(
                 padding: EdgeInsets.all(16),
@@ -147,7 +144,6 @@ class PaymentScreen extends StatelessWidget {
             
             SizedBox(height: 24),
             
-            // Security Info
             Container(
               padding: EdgeInsets.all(12),
               decoration: BoxDecoration(
@@ -174,7 +170,6 @@ class PaymentScreen extends StatelessWidget {
             
             SizedBox(height: 24),
             
-            // Pay Now Button
             Obx(() => SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -210,10 +205,8 @@ class PaymentScreen extends StatelessWidget {
     isProcessing.value = true;
     
     try {
-      // Mock payment processing
       await Future.delayed(Duration(seconds: 3));
       
-      // Create booking
       final success = await bookingController.createBooking(bookingData);
       
       if (success) {

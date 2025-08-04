@@ -1,4 +1,3 @@
-// screens/booking/booking_success_screen.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -18,7 +17,6 @@ class BookingSuccessScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Success Icon
               Container(
                 width: 120,
                 height: 100,
@@ -57,7 +55,6 @@ class BookingSuccessScreen extends StatelessWidget {
               
               SizedBox(height: 32),
               
-              // Booking Summary Card
               Card(
                 child: Padding(
                   padding: EdgeInsets.all(20),
@@ -164,7 +161,6 @@ class BookingSuccessScreen extends StatelessWidget {
               
               SizedBox(height: 32),
               
-              // Action Buttons
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(

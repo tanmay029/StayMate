@@ -1,4 +1,3 @@
-// models/booking_model.dart
 import 'package:staymate/models/property_model.dart';
 
 class Booking {

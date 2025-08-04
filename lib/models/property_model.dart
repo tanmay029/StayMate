@@ -1,4 +1,3 @@
-// models/property_model.dart
 class Property {
   final String id;
   final String title;

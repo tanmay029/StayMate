@@ -1,4 +1,3 @@
-// screens/settings/settings_screen.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/theme_controller.dart';
@@ -15,7 +14,6 @@ class SettingsScreen extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all(16),
         children: [
-          // Theme Section
           Card(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,13 +140,12 @@ class SettingsScreen extends StatelessWidget {
               Get.offAllNamed('/home');
               break;
             case 1:
-              Get.toNamed('/bookings');
+              Get.offNamed('/bookings');
               break;
             case 2:
-              Get.toNamed('/profile');
+              Get.offNamed('/profile');
               break;
             case 3:
-              // Already on settings
               break;
           }
         },

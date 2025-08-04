@@ -1,4 +1,3 @@
-// screens/booking/booking_detail_screen.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -15,15 +14,12 @@ class BookingDetailScreen extends StatelessWidget {
     final int hoursLeft = _getHoursUntilBooking(booking);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Booking Details'),
-      ),
+      appBar: AppBar(title: Text('Booking Details')),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Status Card
             Card(
               child: Padding(
                 padding: EdgeInsets.all(16),
@@ -57,12 +53,17 @@ class BookingDetailScreen extends StatelessWidget {
                     ),
                     Spacer(),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
                         color: _getStatusColor(booking.status).withOpacity(0.1),
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                          color: _getStatusColor(booking.status).withOpacity(0.3),
+                          color: _getStatusColor(
+                            booking.status,
+                          ).withOpacity(0.3),
                         ),
                       ),
                       child: Text(
@@ -81,7 +82,6 @@ class BookingDetailScreen extends StatelessWidget {
 
             SizedBox(height: 16),
 
-            // Property Info Card
             Card(
               child: Padding(
                 padding: EdgeInsets.all(16),
@@ -130,7 +130,11 @@ class BookingDetailScreen extends StatelessWidget {
                               SizedBox(height: 4),
                               Row(
                                 children: [
-                                  Icon(Icons.location_on, size: 16, color: Colors.grey),
+                                  Icon(
+                                    Icons.location_on,
+                                    size: 16,
+                                    color: Colors.grey,
+                                  ),
                                   SizedBox(width: 4),
                                   Expanded(
                                     child: Text(
@@ -143,7 +147,11 @@ class BookingDetailScreen extends StatelessWidget {
                               SizedBox(height: 8),
                               Row(
                                 children: [
-                                  Icon(Icons.star, color: Colors.amber, size: 16),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 16,
+                                  ),
                                   SizedBox(width: 4),
                                   Text('${booking.property.rating}'),
                                 ],
@@ -160,7 +168,6 @@ class BookingDetailScreen extends StatelessWidget {
 
             SizedBox(height: 16),
 
-            // Booking Details Card
             Card(
               child: Padding(
                 padding: EdgeInsets.all(16),
@@ -202,7 +209,6 @@ class BookingDetailScreen extends StatelessWidget {
 
             SizedBox(height: 16),
 
-            // Price Breakdown Card
             Card(
               child: Padding(
                 padding: EdgeInsets.all(16),
@@ -242,12 +248,12 @@ class BookingDetailScreen extends StatelessWidget {
 
             SizedBox(height: 16),
 
-            // Cancellation Info Card
             if (booking.status.toLowerCase() == 'confirmed')
               Card(
-                color: canCancel 
-                    ? Colors.orange.withOpacity(0.1) 
-                    : Colors.red.withOpacity(0.1),
+                color:
+                    canCancel
+                        ? Colors.orange.withOpacity(0.1)
+                        : Colors.red.withOpacity(0.1),
                 child: Padding(
                   padding: EdgeInsets.all(16),
                   child: Column(
@@ -256,7 +262,9 @@ class BookingDetailScreen extends StatelessWidget {
                       Row(
                         children: [
                           Icon(
-                            canCancel ? Icons.info_outline : Icons.warning_outlined,
+                            canCancel
+                                ? Icons.info_outline
+                                : Icons.warning_outlined,
                             color: canCancel ? Colors.orange : Colors.red,
                           ),
                           SizedBox(width: 8),
@@ -275,7 +283,8 @@ class BookingDetailScreen extends StatelessWidget {
                             ? 'You can cancel this booking up to 24 hours before check-in. Time remaining: ${hoursLeft} hours.'
                             : 'Cancellation is no longer available. Less than 24 hours remaining until check-in.',
                         style: TextStyle(
-                          color: canCancel ? Colors.orange[700] : Colors.red[700],
+                          color:
+                              canCancel ? Colors.orange[700] : Colors.red[700],
                         ),
                       ),
                     ],
@@ -285,20 +294,24 @@ class BookingDetailScreen extends StatelessWidget {
 
             SizedBox(height: 24),
 
-            // Action Buttons
             if (booking.status.toLowerCase() == 'confirmed')
               Row(
                 children: [
                   Expanded(
                     child: OutlinedButton(
-                      onPressed: () => Get.toNamed('/property-detail', arguments: booking.property),
+                      onPressed:
+                          () => Get.toNamed(
+                            '/property-detail',
+                            arguments: booking.property,
+                          ),
                       child: Text('View Property'),
                     ),
                   ),
                   SizedBox(width: 12),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: canCancel ? () => _showCancelDialog(booking) : null,
+                      onPressed:
+                          canCancel ? () => _showCancelDialog(booking) : null,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: canCancel ? Colors.red : Colors.grey,
                       ),
@@ -310,19 +323,129 @@ class BookingDetailScreen extends StatelessWidget {
                   ),
                 ],
               )
+            else if (booking.status.toLowerCase() == 'completed')
+              Column(
+                children: [
+                  if (bookingController.hasReviewed(booking.id))
+                    Card(
+                      color: Colors.green.withOpacity(0.1),
+                      child: Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(Icons.check_circle, color: Colors.green),
+                                SizedBox(width: 8),
+                                Text(
+                                  'Review Submitted',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green[700],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 8),
+                            Text('Thank you for sharing your experience!'),
+                          ],
+                        ),
+                      ),
+                    )
+                  else
+                    Card(
+                      color: Colors.blue.withOpacity(0.1),
+                      child: Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(Icons.rate_review, color: Colors.blue),
+                                SizedBox(width: 8),
+                                Text(
+                                  'Share Your Experience',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue[700],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              'Help other travelers by writing a review about your stay.',
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                  SizedBox(height: 16),
+
+                  Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton(
+                          onPressed:
+                              () => Get.toNamed(
+                                '/property-detail',
+                                arguments: booking.property,
+                              ),
+                          child: Text('View Property'),
+                        ),
+                      ),
+                      SizedBox(width: 12),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed:
+                              bookingController.hasReviewed(booking.id)
+                                  ? null
+                                  : () => Get.toNamed(
+                                    '/review',
+                                    arguments: booking,
+                                  ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                bookingController.hasReviewed(booking.id)
+                                    ? Colors.grey
+                                    : Theme.of(context).primaryColor,
+                          ),
+                          child: Text(
+                            bookingController.hasReviewed(booking.id)
+                                ? 'Already Reviewed'
+                                : 'Write Review',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              )
             else if (booking.status.toLowerCase() == 'cancelled')
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton(
-                  onPressed: () => Get.toNamed('/property-detail', arguments: booking.property),
-                  child: Text('View Property Again'),
+                  onPressed:
+                      () => Get.toNamed(
+                        '/property-detail',
+                        arguments: booking.property,
+                      ),
+                  child: Text('Book Again'),
                 ),
               )
             else
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton(
-                  onPressed: () => Get.toNamed('/property-detail', arguments: booking.property),
+                  onPressed:
+                      () => Get.toNamed(
+                        '/property-detail',
+                        arguments: booking.property,
+                      ),
                   child: Text('View Property'),
                 ),
               ),
@@ -345,17 +468,11 @@ class BookingDetailScreen extends StatelessWidget {
               children: [
                 Text(
                   label,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey[600],
-                  ),
+                  style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                 ),
                 Text(
                   value,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
               ],
             ),
@@ -393,7 +510,7 @@ class BookingDetailScreen extends StatelessWidget {
 
   bool _canCancelBooking(Booking booking) {
     if (booking.status.toLowerCase() != 'confirmed') return false;
-    
+
     final now = DateTime.now();
     final hoursUntilCheckIn = booking.checkIn.difference(now).inHours;
     return hoursUntilCheckIn >= 24;
@@ -451,18 +568,12 @@ class BookingDetailScreen extends StatelessWidget {
             SizedBox(height: 8),
             Text(
               'This action cannot be undone.',
-              style: TextStyle(
-                color: Colors.red,
-                fontSize: 12,
-              ),
+              style: TextStyle(color: Colors.red, fontSize: 12),
             ),
           ],
         ),
         actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: Text('Keep Booking'),
-          ),
+          TextButton(onPressed: () => Get.back(), child: Text('Keep Booking')),
           ElevatedButton(
             onPressed: () {
               Get.back();
@@ -476,7 +587,10 @@ class BookingDetailScreen extends StatelessWidget {
               );
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: Text('Cancel Booking', style: TextStyle(color: Colors.white)),
+            child: Text(
+              'Cancel Booking',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
         ],
       ),

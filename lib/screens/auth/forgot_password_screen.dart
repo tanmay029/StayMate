@@ -1,4 +1,3 @@
-// screens/auth/forgot_password_screen.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -83,7 +82,6 @@ class ForgotPasswordScreen extends StatelessWidget {
     
     isLoading.value = false;
     
-    // Show success dialog
     Get.dialog(
       AlertDialog(
         title: Text('Reset Link Sent'),
@@ -93,8 +91,8 @@ class ForgotPasswordScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              Get.back(); // Close dialog
-              Get.back(); // Go back to login
+              Get.back(); 
+              Get.back(); 
             },
             child: Text('OK'),
           ),
