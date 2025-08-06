@@ -3,6 +3,8 @@ plugins {
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
+    // Add Google Services plugin for Firebase
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -41,4 +43,12 @@ android {
 
 flutter {
     source = "../.."
+}
+
+// Firebase dependencies will be added automatically via the google-services plugin
+dependencies {
+    // These dependencies are added automatically by the google-services plugin
+    // but you can add them explicitly if needed:
+    // implementation 'com.google.firebase:firebase-auth'
+    // implementation 'com.google.android.gms:play-services-auth'
 }

@@ -5,9 +5,11 @@ import 'package:staymate/screens/booking/booking_success_screen.dart';
 import 'package:staymate/screens/booking/my_bookings_screen.dart';
 import 'package:staymate/screens/booking/payment_screen.dart';
 import 'package:staymate/screens/booking/review_screen.dart';
+import 'package:staymate/screens/favorites/favorites_screen.dart';
 import 'package:staymate/screens/profile/edit_profile_screen.dart';
 import 'package:staymate/screens/profile/profile_screen.dart';
 import 'package:staymate/screens/property/property_reviews_screen.dart';
+import 'package:staymate/screens/tutorial/welcome_screen.dart';
 import '../screens/auth/login_screen.dart';
 import '../screens/auth/register_screen.dart';
 import '../screens/auth/forgot_password_screen.dart';
@@ -87,14 +89,23 @@ class AppPages {
       transition: Transition.noTransition,
     ),
     GetPage(
-  name: '/review',
-  page: () => ReviewScreen(),
-  transition: Transition.noTransition,
-),
-GetPage(
-  name: '/property-reviews',
-  page: () => PropertyReviewsScreen(),
-  transition: Transition.noTransition,
-),
+      name: '/review',
+      page: () => ReviewScreen(),
+      transition: Transition.noTransition,
+    ),
+    GetPage(
+      name: '/property-reviews',
+      page: () => PropertyReviewsScreen(),
+      transition: Transition.noTransition,
+    ),
+    GetPage(
+      name: '/favorites',
+      page: () => FavoritesScreen(),
+      transition: Transition.noTransition,
+    ),
+    GetPage(
+      name: Routes.WELCOME,
+      page: () => WelcomeScreen(), 
+    ),
   ];
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
+import 'package:staymate/controllers/favorites_controller.dart';
 import '../../models/property_model.dart';
 import '../../controllers/booking_controller.dart';
 
@@ -13,7 +15,7 @@ class PropertyDetailScreen extends StatefulWidget {
 class _PropertyDetailScreenState extends State<PropertyDetailScreen> {
   final Property property = Get.arguments;
   final PageController _pageController = PageController();
-  final bookingController = Get.find<BookingController>(); 
+  final bookingController = Get.find<BookingController>();
 
   int _currentPage = 0;
   DateTime? checkInDate;
@@ -29,6 +31,51 @@ class _PropertyDetailScreenState extends State<PropertyDetailScreen> {
           SliverAppBar(
             expandedHeight: 300,
             pinned: true,
+            actions: [
+              Obx(() {
+                final favoritesController = Get.put(FavoritesController());
+                return Padding(
+                  padding: EdgeInsets.only(right: 8),
+                  child: GestureDetector(
+                    onTap: () {
+                      HapticFeedback.mediumImpact();
+                      favoritesController.toggleFavorite(property);
+                    },
+                    child: AnimatedContainer(
+                      duration: Duration(milliseconds: 200),
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.9),
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 4,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: AnimatedSwitcher(
+                        duration: Duration(milliseconds: 200),
+                        child: Icon(
+                          favoritesController.isFavorite(property.id)
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          key: ValueKey(
+                            favoritesController.isFavorite(property.id),
+                          ),
+                          color:
+                              favoritesController.isFavorite(property.id)
+                                  ? Colors.red
+                                  : Colors.grey[600],
+                          size: 24,
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }),
+            ],
             flexibleSpace: FlexibleSpaceBar(
               background: Stack(
                 children: [
@@ -222,7 +269,6 @@ class _PropertyDetailScreenState extends State<PropertyDetailScreen> {
                           ),
                           SizedBox(height: 12),
 
-                          
                           ...reviews
                               .take(2)
                               .map(
@@ -231,16 +277,10 @@ class _PropertyDetailScreenState extends State<PropertyDetailScreen> {
                                   child: Container(
                                     padding: EdgeInsets.all(12),
                                     decoration: BoxDecoration(
-                                      color:
-                                          Theme.of(
-                                            context,
-                                          ).cardColor, 
+                                      color: Theme.of(context).cardColor,
                                       borderRadius: BorderRadius.circular(8),
                                       border: Border.all(
-                                        color:
-                                            Theme.of(
-                                              context,
-                                            ).dividerColor, 
+                                        color: Theme.of(context).dividerColor,
                                       ),
                                     ),
                                     child: Column(
@@ -257,7 +297,7 @@ class _PropertyDetailScreenState extends State<PropertyDetailScreen> {
                                                     Theme.of(context)
                                                         .textTheme
                                                         .bodyLarge
-                                                        ?.color, 
+                                                        ?.color,
                                               ),
                                             ),
                                             Spacer(),
@@ -281,10 +321,9 @@ class _PropertyDetailScreenState extends State<PropertyDetailScreen> {
                                           style: TextStyle(
                                             fontSize: 13,
                                             color:
-                                                Theme.of(context)
-                                                    .textTheme
-                                                    .bodyMedium
-                                                    ?.color,
+                                                Theme.of(
+                                                  context,
+                                                ).textTheme.bodyMedium?.color,
                                           ),
                                         ),
                                         SizedBox(height: 4),
@@ -295,10 +334,9 @@ class _PropertyDetailScreenState extends State<PropertyDetailScreen> {
                                           style: TextStyle(
                                             fontSize: 11,
                                             color:
-                                                Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall
-                                                    ?.color,
+                                                Theme.of(
+                                                  context,
+                                                ).textTheme.bodySmall?.color,
                                           ),
                                         ),
                                       ],
