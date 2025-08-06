@@ -12,7 +12,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final authController = Get.find<AuthController>();
-  
+
   // Password visibility state
   bool _isPasswordVisible = false;
 
@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: 60),
-              
+
               // Logo
               Container(
                 width: 100,
@@ -35,32 +35,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Theme.of(context).primaryColor,
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
-                  Icons.home_rounded,
-                  color: Colors.white,
-                  size: 50,
-                ),
+                child: Icon(Icons.home_rounded, color: Colors.white, size: 50),
               ),
-              
+
               SizedBox(height: 24),
               Text(
                 'Welcome to StayMate',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
               Text(
                 'Sign in to continue',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey[600],
-                ),
+                style: TextStyle(fontSize: 16, color: Colors.grey[600]),
               ),
-              
+
               SizedBox(height: 48),
-              
+
               // Email Field
               TextField(
                 controller: emailController,
@@ -73,9 +63,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 keyboardType: TextInputType.emailAddress,
               ),
-              
+
               SizedBox(height: 16),
-              
+
               // Password Field with Eye Icon
               TextField(
                 controller: passwordController,
@@ -84,8 +74,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   prefixIcon: Icon(Icons.lock),
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _isPasswordVisible 
-                          ? Icons.visibility 
+                      _isPasswordVisible
+                          ? Icons.visibility
                           : Icons.visibility_off,
                     ),
                     onPressed: () {
@@ -100,24 +90,40 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 obscureText: !_isPasswordVisible,
               ),
-              
+
               SizedBox(height: 24),
-              
+
               // Sign In Button
-              Obx(() => SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: authController.isLoading.value
-                      ? null
-                      : () => _handleEmailLogin(),
-                  child: authController.isLoading.value
-                      ? CircularProgressIndicator(color: Colors.white)
-                      : Text('Sign In'),
+              Obx(
+                () => SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed:
+                        authController.isLoading.value
+                            ? null
+                            : () => _handleEmailLogin(),
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child:
+                        authController.isLoading.value
+                            ? CircularProgressIndicator(color: Colors.white)
+                            : Text(
+                              'Sign In',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                  ),
                 ),
-              )),
-              
+              ),
+
               SizedBox(height: 16),
-              
+
               // OR Divider
               Row(
                 children: [
@@ -129,29 +135,64 @@ class _LoginScreenState extends State<LoginScreen> {
                   Expanded(child: Divider()),
                 ],
               ),
-              
+
               SizedBox(height: 16),
-              
+
               // Google Sign In Button
-              Obx(() => SizedBox(
-                width: double.infinity,
-                child: OutlinedButton.icon(
-                  onPressed: authController.isLoading.value
-                      ? null
-                      : () => _handleGoogleSignIn(),
-                  icon: Icon(Icons.g_mobiledata, size: 24),
-                  label: Text('Sign in with Google'),
-                  style: OutlinedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+              Obx(
+                () => SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton.icon(
+                    onPressed:
+                        authController.isLoading.value
+                            ? null
+                            : () => _handleGoogleSignIn(),
+                    icon: Icon(Icons.g_mobiledata, size: 24),
+                    label: Text('Sign in with Google'),
+                    style: OutlinedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
                   ),
                 ),
-              )),
-              
-              SizedBox(height: 16),
-              
+              ),
+
+              SizedBox(height: 12),
+
+              // Guest Login Button
+              Obx(
+                () => SizedBox(
+                  width: double.infinity,
+                  child: TextButton.icon(
+                    onPressed:
+                        authController.isLoading.value
+                            ? null
+                            : () => _handleGuestLogin(),
+                    icon: Icon(Icons.person_outline, color: Colors.grey[600]),
+                    label: Text(
+                      'Continue as Guest',
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: BorderSide(color: Colors.grey[300]!),
+                      ),
+                      backgroundColor: Colors.grey[50],
+                    ),
+                  ),
+                ),
+              ),
+
+              SizedBox(height: 20),
+
               // Navigation Links
               TextButton(
                 onPressed: () => Get.toNamed('/register'),
@@ -160,6 +201,29 @@ class _LoginScreenState extends State<LoginScreen> {
               TextButton(
                 onPressed: () => Get.toNamed('/forgot-password'),
                 child: Text('Forgot Password?'),
+              ),
+
+              // Guest Login Information
+              SizedBox(height: 16),
+              Container(
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.blue[50],
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.blue[200]!),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.info_outline, color: Colors.blue[600], size: 20),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        'Guest users can browse properties but need to sign up to make bookings.',
+                        style: TextStyle(color: Colors.blue[700], fontSize: 12),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -184,5 +248,92 @@ class _LoginScreenState extends State<LoginScreen> {
   void _handleGoogleSignIn() async {
     // Just call signInWithGoogle - AuthController will handle navigation to welcome page
     await authController.signInWithGoogle();
+  }
+
+  void _handleGuestLogin() async {
+    // Show confirmation dialog for guest login
+    final result = await Get.dialog<bool>(
+      AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: Row(
+          children: [
+            Icon(Icons.person_outline, color: Get.theme.primaryColor),
+            SizedBox(width: 8),
+            Text('Guest Mode'),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Continue as a guest?',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+            SizedBox(height: 12),
+            Text(
+              'As a guest, you can:',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            SizedBox(height: 8),
+            _buildFeatureItem('✓ Browse all properties', Colors.green),
+            _buildFeatureItem('✓ View property details', Colors.green),
+            _buildFeatureItem('✓ Search and filter', Colors.green),
+            _buildFeatureItem('✓ Check dummy bookings already done', Colors.green),
+            SizedBox(height: 8),
+            // Text(
+            //   'To unlock full features:',
+            //   style: TextStyle(fontWeight: FontWeight.w500),
+            // ),
+            // SizedBox(height: 8),
+            // _buildFeatureItem('✗ Make bookings', Colors.orange),
+            // _buildFeatureItem('✗ Save favorites', Colors.orange),
+            // _buildFeatureItem('✗ Write reviews', Colors.orange),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(result: false),
+            child: Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () => Get.back(result: true),
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            child: Text('Continue as Guest'),
+          ),
+        ],
+      ),
+    );
+
+    if (result == true) {
+      // Call guest login method in AuthController
+      await authController.loginAsGuest();
+    }
+  }
+
+  Widget _buildFeatureItem(String text, Color color) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 2),
+      child: Row(
+        children: [
+          Text(
+            text.substring(0, 1),
+            style: TextStyle(
+              color: color,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+          SizedBox(width: 8),
+          Expanded(
+            child: Text(text.substring(2), style: TextStyle(fontSize: 14)),
+          ),
+        ],
+      ),
+    );
   }
 }

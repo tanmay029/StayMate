@@ -1,4 +1,5 @@
 // controllers/auth_controller.dart
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
@@ -44,6 +45,43 @@ class AuthController extends GetxController {
       }
     });
   }
+
+  // Add this method to your controllers/auth_controller.dart
+
+Future<bool> loginAsGuest() async {
+  try {
+    isLoading.value = true;
+    
+    // Create a temporary guest user
+    currentUser.value = User(
+      id: 'guest_${DateTime.now().millisecondsSinceEpoch}',
+      fullName: 'Guest User',
+      email: 'guest@staymate.com',
+      phone: '',
+      isGuest: true, // Add this field to your User model
+    );
+    
+    isLoggedIn.value = true;
+    
+    Get.snackbar(
+      'Welcome!', 
+      'You\'re browsing as a guest. Sign up to unlock all features!',
+      backgroundColor: Get.theme.primaryColor,
+      colorText: Colors.white,
+    );
+    
+    // Navigate to welcome page (or directly to home if you prefer)
+    Get.offAllNamed(Routes.WELCOME);
+    return true;
+    
+  } catch (e) {
+    Get.snackbar('Error', 'Failed to continue as guest: ${e.toString()}');
+    return false;
+  } finally {
+    isLoading.value = false;
+  }
+}
+
 
   Future<bool> register({
     required String fullName,
@@ -159,3 +197,5 @@ class AuthController extends GetxController {
            '';
   }
 }
+
+

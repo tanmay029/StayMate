@@ -1,14 +1,14 @@
 buildscript {
-    ext.kotlin_version = '1.9.10'
+    val kotlinVersion = "1.9.10"
+    
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        // Add Google Services classpath for Firebase
-        classpath 'com.google.gms:google-services:4.4.0'
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+        classpath("com.google.gms:google-services:4.4.0")
     }
 }
 
@@ -19,17 +19,17 @@ allprojects {
     }
 }
 
-val newBuildDir: Directory = rootProject.layout.buildDirectory.dir("../../build").get()
-rootProject.layout.buildDirectory.value(newBuildDir)
+// Set custom build directory outside source tree
+val customBuildDir = File(rootProject.rootDir.parent, "build")
+
+allprojects {
+    layout.buildDirectory.set(File(customBuildDir, project.name))
+}
 
 subprojects {
-    val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
-    project.layout.buildDirectory.value(newSubprojectBuildDir)
-}
-subprojects {
-    project.evaluationDependsOn(":app")
+    evaluationDependsOn(":app")
 }
 
 tasks.register<Delete>("clean") {
-    delete(rootProject.layout.buildDirectory)
+    delete(customBuildDir)
 }

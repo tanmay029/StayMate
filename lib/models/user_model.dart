@@ -1,27 +1,19 @@
-import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
+// models/user_model.dart
 class User {
   final String id;
   final String fullName;
   final String email;
   final String phone;
+  final bool isGuest;
 
   User({
     required this.id,
     required this.fullName,
     required this.email,
     required this.phone,
+    this.isGuest = false,
   });
-
-  // Factory constructor for creating User from Firebase User
-  factory User.fromFirebaseUser(firebase_auth.User firebaseUser) {
-    return User(
-      id: firebaseUser.uid,
-      fullName: firebaseUser.displayName ?? '',
-      email: firebaseUser.email ?? '',
-      phone: '', // Firebase Auth doesn't store phone by default
-    );
-  }
 
   Map<String, dynamic> toJson() {
     return {
@@ -29,15 +21,17 @@ class User {
       'fullName': fullName,
       'email': email,
       'phone': phone,
+      'isGuest': isGuest,
     };
   }
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      id: json['id'] ?? '',
-      fullName: json['fullName'] ?? '',
-      email: json['email'] ?? '',
-      phone: json['phone'] ?? '',
+      id: json['id'],
+      fullName: json['fullName'],
+      email: json['email'],
+      phone: json['phone'],
+      isGuest: json['isGuest'] ?? false,
     );
   }
 }
